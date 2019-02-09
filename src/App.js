@@ -10,8 +10,13 @@ class App extends Component {
     this.state={
       dishes:DISHES
     }
+    console.log("constructor")
+  }
+  componentDidMount(){
+    console.log("componentDidMount")
   }
   render() {
+    console.log('render')
     return (
       <div >
         <Navbar dark color="primary">
