@@ -1,6 +1,6 @@
 import React from 'react';
-import {Card, CardBody, CardImg, CardText, CardTitle} from 'reactstrap';
-
+import {Card, CardBody, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import {Link } from 'react-router-dom';
     //function to render selected dish details
 function RenderDish({dish}){
     
@@ -17,44 +17,61 @@ function RenderDish({dish}){
 }
 //function to render comments for selected dish
 function RenderComments({comments}){
-    const dish_comments= comments.map((dishComment)=>{
+    if(comments!==undefined){
         var options = {  year: 'numeric', month: 'long', day: 'numeric' };
-        var date= new Date(dishComment.date).toLocaleDateString("en-US", options)
-            return(
-            <ul  key={dishComment.id} className="list-unstyled">     
-                <li  className="mb-4">
-                    {dishComment.comment}
-                </li>
-                <li className="mb-4">-- {dishComment.author}, {date}</li>    
-            </ul>
-            )
-        })
         return(
-            <div>
-                <h4>Comments</h4>
-                {dish_comments}
-            </div>
+        
+        <ul className="list-unstyled">
+        {comments.map((dishComment)=>{
+            return(
+                <li key={dishComment.id} >
+                <p>{dishComment.comment}</p>
+                <p>-- {dishComment.author}, {new Date(dishComment.date).toLocaleDateString("en-US", options)}</p>
+            </li> 
+            )     
+            
+        }) } 
+        </ul>
+        
     )
+
+    }else{
+        return (<div></div>)
+    }
+        
 }
 
-
 const DishDetail=(props)=>{
-    if(props.dish!==undefined){
+    
         return(
             <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem>
+                            <Link to="/menu">Menu</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem active>
+                            {props.dish.name}
+                        </BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                    
+                </div>
+                
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1">            
-                        <RenderComments comments={props.dish.comments}/>
+                        <RenderComments comments={props.comments}/>
                     </div>
                 </div>
             </div>
             )    
-    }else{
-        return <div></div>
-    }
+   
         
 }
     
