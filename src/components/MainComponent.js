@@ -10,6 +10,7 @@ import Home from './HomeComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 
 class Main extends Component {
   constructor(props){
@@ -38,6 +39,7 @@ class Main extends Component {
             comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))} />
       );
     };
+   
     return (
       <div >
         <Header />
@@ -46,6 +48,7 @@ class Main extends Component {
            <Route path="/menu" exact component={()=><Menu dishes={this.state.dishes} /> }/>
            <Route path="/menu/:dishId" component={DishWithId} />
            <Route path="/contactus" exact component={Contact}/> 
+           <Route path="/aboutus" exact component={()=><About leaders={this.state.leaders} />}/>
            <Redirect to="/home"/>    
          </Switch>
         
