@@ -17,7 +17,7 @@ function RenderDish({dish}){
         
 }
 //function to render comments for selected dish
-function RenderComments({comments}){
+function RenderComments({comments, addComment, dishId}){
     if(comments!==undefined){
         var options = {  year: 'numeric', month: 'long', day: 'numeric' };
         return(
@@ -33,13 +33,13 @@ function RenderComments({comments}){
             
         }) } 
         
-        <li><CommentForm /></li>
+        <li><CommentForm addComment={addComment} dishId={dishId}/></li>
         </ul>
         
     )
 
     }else{
-        return (<div> <CommentForm /></div>)
+        return (<div> <CommentForm addComment={addComment} dishId={dishId}/></div>)
     }
         
 }
@@ -55,6 +55,8 @@ class CommentForm extends Component{
             isCommentOpen:false
         }
         this.toggleComment=this.toggleComment.bind(this)
+        this.handleSubmit=this.handleSubmit.bind(this)
+
     }
 
     toggleComment(){
@@ -70,9 +72,7 @@ class CommentForm extends Component{
         return options
     }
     handleSubmit(values){
-        console.log("Current State: "+ JSON.stringify(values))
-        alert("Current State: "+ JSON.stringify(values))
-        this.toggleComment();
+        this.props.addComment(this.props.dishId, values.rating, values.yourname, values.comments)
     }
     render(){
         return(
@@ -148,7 +148,7 @@ const DishDetail=(props)=>{
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1">            
-                        <RenderComments comments={props.comments}/>
+                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
                     </div>
                 </div>
             </div>
