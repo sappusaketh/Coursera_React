@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Card, CardBody, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Label} from 'reactstrap';
 import {Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form'
+import {Loading} from './LoadingComponent'
     //function to render selected dish details
 function RenderDish({dish}){
     
@@ -124,7 +125,25 @@ class CommentForm extends Component{
     }
 }
 const DishDetail=(props)=>{
-    
+    if(props.isLoading){
+        return(
+            <div className='container'>
+                <div className= 'row'>
+                    <Loading/>
+                </div>
+            </div>
+        )
+        
+    }else if(props.errMess){
+        return(
+            <div className='container'>
+                <div className= 'row'>
+                    {props.errMess}
+                </div>
+            </div>
+        )
+    }
+    else{
         return(
             <div className="container">
                 <div className="row">
@@ -152,7 +171,9 @@ const DishDetail=(props)=>{
                     </div>
                 </div>
             </div>
-            )    
+        )    
+    }
+        
    
         
 }
