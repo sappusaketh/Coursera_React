@@ -9,7 +9,7 @@ const Home=function(props){
             return(<Loading />)  
         }
         else if(errMess){
-            return({errMess})
+            return(<h4>{errMess}</h4>)
         }else{
             return(
                 <Card>
