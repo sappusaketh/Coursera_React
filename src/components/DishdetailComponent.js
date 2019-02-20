@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {Card, CardBody, CardImg, CardText, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Label} from 'reactstrap';
 import {Link } from 'react-router-dom';
-import { LocalForm, Control, Errors } from 'react-redux-form'
-import {Loading} from './LoadingComponent'
+import { LocalForm, Control, Errors } from 'react-redux-form';
+import {Loading} from './LoadingComponent';
+import {baseUrl} from '../shared/baseUrl';
+
     //function to render selected dish details
 function RenderDish({dish}){
     
     return(
         <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
+            <CardImg top src={baseUrl+dish.image} alt={dish.name} />
             <CardBody>
                 <CardTitle>{dish.name}</CardTitle>   
                 <CardText> {dish.description} </CardText>
