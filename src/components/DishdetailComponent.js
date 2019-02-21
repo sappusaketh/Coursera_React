@@ -4,18 +4,22 @@ import {Link } from 'react-router-dom';
 import { LocalForm, Control, Errors } from 'react-redux-form';
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
-
+import {FadeTransform, Fade, Stagger} from 'react-animation-components';
     //function to render selected dish details
 function RenderDish({dish}){
     
     return(
-        <Card>
-            <CardImg top src={baseUrl+dish.image} alt={dish.name} />
-            <CardBody>
-                <CardTitle>{dish.name}</CardTitle>   
-                <CardText> {dish.description} </CardText>
-            </CardBody>
-        </Card>          
+        <FadeTransform in
+            transformProps={{exitTransform:'scale(0.5) translateY(-50%)'}}>
+            <Card>
+                <CardImg top src={baseUrl+dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>   
+                    <CardText> {dish.description} </CardText>
+                </CardBody>
+            </Card>    
+        </FadeTransform>
+                  
     )
         
 }
@@ -26,15 +30,22 @@ function RenderComments({comments, postComment, dishId}){
         return(
         
         <ul className="list-unstyled">
+        <Stagger in>
         {comments.map((dishComment)=>{
             return(
-                <li key={dishComment.id} >
-                <p>{dishComment.comment}</p>
-                <p>-- {dishComment.author}, {new Date(dishComment.date).toLocaleDateString("en-US", options)}</p>
-            </li> 
+                
+                    <Fade in>
+                    <li key={dishComment.id} >
+                     <p>{dishComment.comment}</p>
+                     <p>-- {dishComment.author}, {new Date(dishComment.date).toLocaleDateString("en-US", options)}</p>
+                    </li> 
+                    </Fade>
+                
+                
             )     
             
         }) } 
+        </Stagger>
         
         <li><CommentForm postComment={postComment} dishId={dishId}/></li>
         </ul>
@@ -76,7 +87,8 @@ class CommentForm extends Component{
     }
     handleSubmit(values){
         this.toggleComment();
-        this.props.postComment(this.props.dishId, values.rating, values.yourname, values.comments)
+        console.log(values.rating)
+        // this.props.postComment(this.props.dishId, values.rating, values.yourname, values.comments)
     }
     render(){
         return(

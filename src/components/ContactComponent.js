@@ -17,53 +17,54 @@ class Contact extends Component {
 
         
         this.handleSubmit=this.handleSubmit.bind(this)
-        this.validation=this.validation.bind(this)
+        // this.validation=this.validation.bind(this)
 
     }
 
     
 
     handleSubmit(values){
-        console.log("New State: "+ JSON.stringify(values))
-        alert("New State: "+ JSON.stringify(values))
+        this.props.postFeedback(values)
+        
+        // alert("New State: "+ JSON.stringify(values))
         this.props.resetFeedbackForm();
         
     }
 
-    validation(firstname,lastname,email,telnum){
+    // validation(firstname,lastname,email,telnum){
 
-        const errors={
-            firstname: '',
-            lastname: '',
-            telnum: '',
-            email: ''
-        }
-        const reg_alpha=/^([a-zA-Z\s])+$/gm;
+    //     const errors={
+    //         firstname: '',
+    //         lastname: '',
+    //         telnum: '',
+    //         email: ''
+    //     }
+    //     const reg_alpha=/^([a-zA-Z\s])+$/gm;
         
-        if(this.state.touched.firstname===true && !reg_alpha.test(firstname)){
-            errors.firstname="First Name contains invalid characters"
-        }else if(this.state.touched.firstname===true && firstname.length<3){
-            errors.firstname="First Name should contain minimum of 3 characters"
-        }else if(this.state.touched.firstname===true && firstname.length>11){
-            errors.firstname="First Name can only contain maximum of 10 characters"
-        }
+    //     if(this.state.touched.firstname===true && !reg_alpha.test(firstname)){
+    //         errors.firstname="First Name contains invalid characters"
+    //     }else if(this.state.touched.firstname===true && firstname.length<3){
+    //         errors.firstname="First Name should contain minimum of 3 characters"
+    //     }else if(this.state.touched.firstname===true && firstname.length>11){
+    //         errors.firstname="First Name can only contain maximum of 10 characters"
+    //     }
         
-        if (this.state.lastname===true && reg_alpha.test(lastname)){
-            errors.lastname = 'Last Name should be >= 3 characters';
-        }else if (this.state.touched.lastname && lastname.length > 10){
-            errors.lastname = 'Last Name should be <= 10 characters';
-        }else if(this.state.touched.lastname && lastname.length < 3){
-            errors.lastname="Last Name contains invalid characters"
-        }
+    //     if (this.state.lastname===true && reg_alpha.test(lastname)){
+    //         errors.lastname = 'Last Name should be >= 3 characters';
+    //     }else if (this.state.touched.lastname && lastname.length > 10){
+    //         errors.lastname = 'Last Name should be <= 10 characters';
+    //     }else if(this.state.touched.lastname && lastname.length < 3){
+    //         errors.lastname="Last Name contains invalid characters"
+    //     }
 
-        const reg = /^\d{1,10}$/;
-        if (this.state.touched.telnum && !reg.test(telnum))
-            errors.telnum = 'Tel. Number should contain only numbers';
+    //     const reg = /^\d{1,10}$/;
+    //     if (this.state.touched.telnum && !reg.test(telnum))
+    //         errors.telnum = 'Tel. Number should contain only numbers';
             
-        if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1) 
-            errors.email = 'Email should contain a @';
-        return errors;
-    }
+    //     if (this.state.touched.email && email.split('').filter(x => x === '@').length !== 1) 
+    //         errors.email = 'Email should contain a @';
+    //     return errors;
+    // }
 
 
 
