@@ -20,7 +20,7 @@ function RenderDish({dish}){
         
 }
 //function to render comments for selected dish
-function RenderComments({comments, addComment, dishId}){
+function RenderComments({comments, postComment, dishId}){
     if(comments!==undefined){
         var options = {  year: 'numeric', month: 'long', day: 'numeric' };
         return(
@@ -36,13 +36,13 @@ function RenderComments({comments, addComment, dishId}){
             
         }) } 
         
-        <li><CommentForm addComment={addComment} dishId={dishId}/></li>
+        <li><CommentForm postComment={postComment} dishId={dishId}/></li>
         </ul>
         
     )
 
     }else{
-        return (<div> <CommentForm addComment={addComment} dishId={dishId}/></div>)
+        return (<div> <CommentForm postComment={postComment} dishId={dishId}/></div>)
     }
         
 }
@@ -75,7 +75,8 @@ class CommentForm extends Component{
         return options
     }
     handleSubmit(values){
-        this.props.addComment(this.props.dishId, values.rating, values.yourname, values.comments)
+        this.toggleComment();
+        this.props.postComment(this.props.dishId, values.rating, values.yourname, values.comments)
     }
     render(){
         return(
@@ -169,7 +170,7 @@ const DishDetail=(props)=>{
                         <RenderDish dish={props.dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1">            
-                        <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id}/>
+                        <RenderComments comments={props.comments} postComment={props.postComment} dishId={props.dish.id}/>
                     </div>
                 </div>
             </div>
